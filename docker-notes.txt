@@ -1,5 +1,5 @@
 
-# 1. Get a list of all running containers.
+# 1. Get a list of all running containers.  You can add in a "-l" flag.
 docker ps
 
 # 2. Get the IP address of a container
