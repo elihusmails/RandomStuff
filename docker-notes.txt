@@ -5,5 +5,9 @@ docker ps
 # 2. Get the IP address of a container
 docker inspect --format '{{ .NetworkSettings.IPAddress }}' [container id]
 
+# 3. Commit a running container to an image
+docker commit [image id] [container name]
 
+So for example: 
+docker commit 18097465c2f6 ddf_centos
 
