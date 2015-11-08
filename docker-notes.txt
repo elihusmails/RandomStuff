@@ -14,5 +14,8 @@ docker commit 18097465c2f6 ddf_centos
 # 4. Stop all containers
 docker stop $(docker ps -a -q)
 
-#5 Remove all containers
+# 5. Remove all containers
 docker rm $(docker ps -a -q)
+
+# 6. To map an exposed port to the same external port
+docker run -it -p 8993:8993   [container name]  /bin/bash
