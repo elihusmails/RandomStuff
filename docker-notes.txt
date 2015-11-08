@@ -11,3 +11,8 @@ docker commit [image id] [container name]
 So for example: 
 docker commit 18097465c2f6 ddf_centos
 
+# 4. Stop all containers
+docker stop $(docker ps -a -q)
+
+#5 Remove all containers
+docker rm $(docker ps -a -q)
