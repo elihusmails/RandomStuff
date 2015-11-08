@@ -19,3 +19,7 @@ docker rm $(docker ps -a -q)
 
 # 6. To map an exposed port to the same external port
 docker run -it -p 8993:8993   [container name]  /bin/bash
+
+# 7. Flatten / transfer images
+http://tuhrig.de/flatten-a-docker-container-or-image/
+
