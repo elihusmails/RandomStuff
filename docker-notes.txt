@@ -23,3 +23,6 @@ docker run -it -p 8993:8993   [container name]  /bin/bash
 # 7. Flatten / transfer images
 http://tuhrig.de/flatten-a-docker-container-or-image/
 
+# 8. Docker stats
+docker stats $(docker ps --format '{{.Names}}')
+
