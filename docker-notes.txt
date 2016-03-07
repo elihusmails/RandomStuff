@@ -34,3 +34,38 @@ docker run -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker:/var/
 # 10. Mount a local folder on the container
 docker run -it -v "$PWD/data":/data <container> <command>
 
+
+
+
+_______________________________________________________________________________________
+DDF setup:
+
+To run DDF inside of a docker container, run the following command:
+
+docker run -it -p [outside port]:8993  -p 2222:22 -v ~/docker-share:/share [container name]
+
+_______________________________________________________________________________________
+Solr Cloud setup:
+
+docker run --name zookeeper -d -p 2181:2181 -p 2888:2888 -p 3888:3888 jplock/zookeeper
+docker run --name solr1 --link zookeeper:ZK -d -p 8983:8983 solr bash -c '/opt/solr/bin/solr start -f -z $ZK_PORT_2181_TCP_ADDR:$ZK_PORT_2181_TCP_PORT'
+docker run --name solr2 --link zookeeper:ZK -d -p 8984:8983 solr bash -c '/opt/solr/bin/solr start -f -z $ZK_PORT_2181_TCP_ADDR:$ZK_PORT_2181_TCP_PORT'
+docker exec -i -t solr1 /opt/solr/bin/solr create_collection         -c collection1 -shards 3 -p 8983
+
+_______________________________________________________________________________________
+PostgreSQL setup:
+
+docker run -it postgres --rm postgres sh -c 'exec psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -p "$POSTGRES_PORT_5432_TCP_PORT" -U postgres'
+docker run --name postgresql -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+docker run -it --link postgresql:postgres --rm postgres sh -c 'exec psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -p "$POSTGRES_PORT_5432_TCP_PORT" -U postgres'
+
+_______________________________________________________________________________________
+Accumulo setup:
+
+docker run --name accumulo -i -t -P mraad/accumulo /bin/bash
+
+_______________________________________________________________________________________
+Solr Single Instance setup:
+
+docker run --name my_solr -d -p 8983:8983 -it solr
+docker exec -it --user=solr my_solr bin/solr create_core -c collection1
